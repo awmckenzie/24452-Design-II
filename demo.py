@@ -1,13 +1,7 @@
 import threading
-import random
-from gpiozero import Servo
+from adafruit_servokit import ServoKit
+kit = ServoKit(channels=16)
 from time import sleep
-
-intelDepth = [20., 34.] # assume inches
-pins = [23, 18]
-minDepth = 10;
-maxDepth = 100;
-val = -1;
 
 # setup thread
 class myThread (threading.Thread):
@@ -17,30 +11,38 @@ class myThread (threading.Thread):
       self.name = name
    def run(self):
       print ("Starting " + self.name)
-      servo = Servo(pins[self.i])
-      moveServo(servo, self.name, 2)
-      GPIO.cleanup()
+      moveServo(self.i, 2)
+#       GPIO.cleanup()
       print ("Exiting " + self.name)
 
-def moveServo(servo, name, delay):
-   # val = intelDepth[i] / (maxDepth - minDepth) - 1 #random factor to convert depth to servo angle. -1 <= val <= 1, angle = 0 corresponds to val = -1
-   # if val > 1: val = 1
-   # elif val < -1: val = -1
+def moveServo(index, delay):
    try:
       while True:
-         servo.value = generateDepth()
+         kit.servo[index].angle = 180
+         sleep(delay)
+         kit.servo[index].angle = 90
+         sleep(delay)
+         kit.servo[index].angle = 0
          sleep(delay)
    except:
       GPIO.cleanup()
 
-# function for generating random intel depth
-def generateDepth():
-   return random.uniform(-1,0)
-
 # Create new threads
 thread1 = myThread(0, "Servo-0")
 thread2 = myThread(1, "Servo-1")
+thread3 = myThread(2, "Servo-2")
+thread4 = myThread(3, "Servo-3")
+thread5 = myThread(4, "Servo-4")
+thread6 = myThread(5, "Servo-5")
+thread7 = myThread(6, "Servo-6")
+thread8 = myThread(7, "Servo-7")
 
 # Start new Threads
 thread1.start()
 thread2.start()
+thread3.start()
+thread4.start()
+thread5.start()
+thread6.start()
+thread7.start()
+thread8.start()
