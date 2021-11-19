@@ -12,7 +12,7 @@ class myThread (threading.Thread):
    def run(self):
       print ("Starting " + self.name)
       moveServo(self.i, 2)
-#       GPIO.cleanup()
+      moveServo(self.i+1, 2)
       print ("Exiting " + self.name)
 
 def moveServo(index, delay):
@@ -29,20 +29,20 @@ def moveServo(index, delay):
 
 # Create new threads
 thread1 = myThread(0, "Servo-0")
-thread2 = myThread(1, "Servo-1")
+# thread2 = myThread(1, "Servo-1")
 thread3 = myThread(2, "Servo-2")
-thread4 = myThread(3, "Servo-3")
+# thread4 = myThread(3, "Servo-3")
 thread5 = myThread(4, "Servo-4")
-thread6 = myThread(5, "Servo-5")
+# thread6 = myThread(5, "Servo-5")
 thread7 = myThread(6, "Servo-6")
-thread8 = myThread(7, "Servo-7")
+# thread8 = myThread(7, "Servo-7")
 
 # Start new Threads
 thread1.start()
-thread2.start()
+# thread2.start()
 thread3.start()
-thread4.start()
+# thread4.start()
 thread5.start()
-thread6.start()
+# thread6.start()
 thread7.start()
-thread8.start()
+# thread8.start()
