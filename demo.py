@@ -12,17 +12,19 @@ class myThread (threading.Thread):
    def run(self):
       print ("Starting " + self.name)
       moveServo(self.i, 2)
-      moveServo(self.i+1, 2)
       print ("Exiting " + self.name)
 
 def moveServo(index, delay):
    try:
       while True:
          kit.servo[index].angle = 180
+         kit.servo[index+1].angle = 180
          sleep(delay)
          kit.servo[index].angle = 90
+         kit.servo[index+1].angle = 90
          sleep(delay)
          kit.servo[index].angle = 0
+         kit.servo[index+1].angle = 0
          sleep(delay)
    except:
       GPIO.cleanup()
