@@ -15,14 +15,8 @@ class Servo:
         kit.servo[self.pinout].angle = 0
 
     def move(self, angle):
-        if self.state == 0:
-            self.state = 1
+        if self.angle != self.target_angle:
             self.target_angle = angle # accept new target angle    
-
-        else:
-            self.angle = kit.servo[self.pinout].angle
-            if self.target_angle == self.angle:
-                self.state = 0
         
         kit.servo[self.pinout].angle = self.target_angle
 
