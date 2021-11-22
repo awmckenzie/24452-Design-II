@@ -14,7 +14,7 @@ class Servo:
 
     def move(self, angle):
         if self.state == 0:
-            kit.continuous_servo[self.pinout].throttle = self.throttle
+            kit.servo[self.pinout].angle = angle
 
     def update_angle(self):
         self.angle = kit.servo[self.pinout].angle
