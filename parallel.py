@@ -6,7 +6,7 @@ import servo
 
 kit = ServoKit(channels=16)
 
-actuators = 8
+actuators = 2
 servos = []
 servo_targets = [0, 0, 0, 0, 0, 0, 0, 0] # 0 to 180 degrees
 depths = [0, 0, 0, 0, 0, 0, 0, 0] # 600 to 2000 mm
@@ -30,7 +30,7 @@ def init_servos(num_servos):
         servos.append(servo.Servo(i))
 
     for s in servos:
-            s.move(0)
+            s.zero()
             s.update_angle()
             #print(s.angle)
 
