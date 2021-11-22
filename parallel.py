@@ -9,7 +9,7 @@ servos = []
 
 def init_servos(num_servos):
     for i in range(num_servos):
-        servos[i] = servo.Servo(i)
+        servos.append(servo.Servo(i))
 
 def loop():
     while(True):
