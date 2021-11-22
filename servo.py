@@ -21,7 +21,7 @@ class Servo:
 
         kit.servo[self.pinout].angle = self.target_angle
         
-        print(round(self.angle), self.target_angle)
+        # print(round(self.angle), self.target_angle)
 
     def update_angle(self):
         self.angle = kit.servo[self.pinout].angle

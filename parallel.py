@@ -20,9 +20,9 @@ def fake_input(time):
         for i in range(actuators):
             depths[i] = random.randint(min_range, max_range)
             servo_targets[i] = round(180 * (depths[i] - min_range) / (max_range - min_range))
-        print(depths)
-        print(servo_targets)
-        print()
+        #print(depths)
+        #print(servo_targets)
+        #print()
 
 
 def init_servos(num_servos):
@@ -32,7 +32,7 @@ def init_servos(num_servos):
     for s in servos:
             s.move(0)
             s.update_angle()
-            print(s.angle)
+            #print(s.angle)
 
 def poll():
     while(True):
