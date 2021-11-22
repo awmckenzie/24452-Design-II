@@ -28,7 +28,7 @@ def init_servos(num_servos):
 
     for s in servos:
             s.zero()
-            s.update_angle()
+            s.get_angle()
             print(s.angle)
 
 def poll():
