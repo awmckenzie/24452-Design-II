@@ -18,13 +18,12 @@ def loop():
             servo.update_angle()
             print(servo.angle)
 
-            time.sleep(1)
+        time.sleep(1)
 
+        for servo in servos:
             servo.move(180)
             servo.update_angle()
             print(servo.angle)
-
-            time.sleep(1)
 
 
 
