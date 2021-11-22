@@ -6,7 +6,7 @@ import servo
 
 kit = ServoKit(channels=16)
 
-actuators = 1
+actuators = 8
 servos = []
 servo_targets = [0, 0, 0, 0, 0, 0, 0, 0] # 0 to 180 degrees
 depths = [0, 0, 0, 0, 0, 0, 0, 0] # 600 to 2000 mm
