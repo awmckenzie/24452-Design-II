@@ -42,6 +42,7 @@ try:
 
     while(True):
         t1 = t.time()
+        print(t1)
         frame = frame_queue.wait_for_frame()
         #frame = pipeline.wait_for_frames()
         depth_frame = frame.as_frameset().get_depth_frame()
@@ -72,6 +73,8 @@ try:
         cv2.imshow('RealSense', depth_colormap)
         cv2.waitKey(1)
         t5 = t.time()
+        print(t5)
+        print()
         q_time_avg += t2-t1
         filter_time_avg += t3-t2
         loop_time_avg += t4-t3
