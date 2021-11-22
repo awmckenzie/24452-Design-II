@@ -21,9 +21,14 @@ class Servo:
             self.angle = kit.servo[self.pinout].angle
             self.target_angle = angle
             
-            kit.servo[self.pinout].angle = self.target_angle
+            if self.target_angle > self.angle:
+                kit.continous_servo[self.pinout].throttle = 1
+            else:
+                kit.continous_servo[self.pinout].throttle = -1
+
         else:
             if self.angle == self.target_angle:
+                kit.continous_servo[self.pinout].throttle = 0
                 self.state = 0
 
 
