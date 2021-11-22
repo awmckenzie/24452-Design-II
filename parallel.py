@@ -10,12 +10,13 @@ actuators = 2
 servos = []
 servo_targets = [0, 0, 0, 0, 0, 0, 0, 0] # 0 to 180 degrees
 depths = [0, 0, 0, 0, 0, 0, 0, 0] # 600 to 2000 mm
-depth_refresh = 0.07 # ~15 Hz
+depth_refresh = 0. # ~15 Hz
 
 min_range = 600
 max_range = 2000
 
 def fake_input(time):
+    print(round(time,2) - round(time))
     if (round(time,2) - round(time)) % depth_refresh == 0:
         for i in range(actuators):
             depths[i] = random.randint(min_range, max_range)
