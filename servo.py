@@ -10,7 +10,6 @@ class Servo:
         self.target_angle = 0
         
         self.time = 0
-        self.throttle = 1
 
     def zero(self):
         kit.servo[self.pinout].angle = 0
