@@ -28,7 +28,7 @@ def init_servos(num_servos):
         servos.append(servo.Servo(i))
 
     for s in servos:
-            s.zero()
+            s.move(0)
             s.get_angle()
             print(s.angle)
 
