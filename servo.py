@@ -18,7 +18,6 @@ class Servo:
     def move(self, angle):
         if self.state == 0:
             self.state = 1
-            self.angle = kit.servo[self.pinout].angle
             self.target_angle = angle
             
             if self.target_angle > self.angle:
@@ -27,6 +26,7 @@ class Servo:
                 kit.continuous_servo[self.pinout].throttle = -1
 
         else:
+            self.angle = kit.servo[self.pinout].angle
             if self.angle == self.target_angle:
                 kit.continuous_servo[self.pinout].throttle = 0
                 self.state = 0
