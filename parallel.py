@@ -40,7 +40,7 @@ def poll():
         
         for i in range(actuators):
             servos[i].move(servo_targets[i])
-        print(servos[0].state)
+        print(servos[0].angle, servos[0].target_angle, servos[0].state)
 
         # time.sleep(1)
 
