@@ -27,5 +27,5 @@ def loop():
 
         time.sleep(1)
 
-init_servos(2)
+init_servos(8)
 loop()
