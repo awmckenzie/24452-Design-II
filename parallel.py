@@ -16,7 +16,7 @@ min_range = 600
 max_range = 2000
 
 def fake_input(time):
-    print(round(time,2) - round(time))
+    #print(round(time,2) - round(time))
     if (round(round(time,2) - round(time),2)) % depth_refresh == 0:
         for i in range(actuators):
             depths[i] = random.randint(min_range, max_range)
