@@ -25,7 +25,7 @@ def loop():
             servo.update_angle()
             print(servo.angle)
 
-
+        time.sleep(1)
 
 init_servos(2)
 loop()
