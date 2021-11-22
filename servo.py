@@ -9,8 +9,15 @@ class Servo:
         self.time = 0
         self.throttle = 1
 
+    def zero(self):
+        kit.servo[self.pinout].angle = 0
+
     def move(self, angle):
         if self.state == 0:
             kit.continuous_servo[self.pinout].throttle = self.throttle
+
+    def update_angle(self):
+        self.angle = kit.servo[self.pinout].angle
+
 
 
