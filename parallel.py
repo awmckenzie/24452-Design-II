@@ -5,22 +5,20 @@ import servo
 
 kit = ServoKit(channels=16)
 
-servo1 = servo.Servo(0)
+servos = []
 
+def init_servos(num_servos):
+    for i in range(num_servos):
+        servos[i] = servo.Servo(i)
 def loop():
     while(True):
-        servo1.zero()
-        time.sleep(1)
-        servo1.update_angle()
-        print(servo1.angle)
-
-        # servo1.move(180)
-        # time.sleep(1)
-        # servo1.update_angle()
-        # print(servo1.angle)
-
+        for servo in servos:
+            servo.zero()
+            servo.update_angle()
+            print(servo.angle)
 
 try:
+    init_servos(2)
     loop()
 except:
     print('done')
