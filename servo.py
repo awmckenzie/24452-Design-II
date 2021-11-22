@@ -19,6 +19,8 @@ class Servo:
             self.target_angle = angle # accept new target angle    
         
         kit.servo[self.pinout].angle = self.target_angle
+        self.angle = kit.servo[self.pinout].angle
+        print(self.angle, self.target_angle)
 
     def update_angle(self):
         self.angle = kit.servo[self.pinout].angle
