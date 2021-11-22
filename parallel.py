@@ -6,7 +6,7 @@ import servo
 
 kit = ServoKit(channels=16)
 
-actuators = 8
+actuators = 1
 servos = []
 servo_targets = [0, 0, 0, 0, 0, 0, 0, 0] # 0 to 180 degrees
 depths = [0, 0, 0, 0, 0, 0, 0, 0] # 600 to 2000 mm
@@ -19,7 +19,7 @@ def fake_input(time):
     if (round(time,2) - round(time)) % depth_refresh == 0:
         for i in range(actuators):
             depths[i] = random.randint(min_range, max_range)
-            servo_targets[i] = 180 * (depths[i] - min_range) / (max_range - min_range)
+            servo_targets[i] = round(180 * (depths[i] - min_range) / (max_range - min_range))
         print(depths)
         print(servo_targets)
         print()
@@ -40,6 +40,7 @@ def poll():
         
         for i in range(actuators):
             servos[i].move(servo_targets[i])
+        print(servos[0].state)
 
         # time.sleep(1)
 
