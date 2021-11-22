@@ -27,7 +27,7 @@ class Servo:
         kit.servo[self.pinout].angle = self.target_angle
 
     def get_angle(self):
-        return kit.servo[self.pinout].angle
+        self.angle = kit.servo[self.pinout].angle
 
 
 
