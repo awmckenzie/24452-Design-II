@@ -13,14 +13,12 @@ def loop():
         time.sleep(1)
         servo1.update_angle()
         print(servo1.angle)
+
         servo1.move(180)
         time.sleep(1)
         servo1.update_angle()
         print(servo1.angle)
-        servo1.move(0)
-        time.sleep(1)
-        servo1.update_angle()
-        print(servo1.angle)
+
 
 try:
     loop()
