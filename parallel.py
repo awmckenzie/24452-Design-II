@@ -10,6 +10,7 @@ servos = []
 def init_servos(num_servos):
     for i in range(num_servos):
         servos[i] = servo.Servo(i)
+
 def loop():
     while(True):
         for servo in servos:
@@ -17,8 +18,6 @@ def loop():
             servo.update_angle()
             print(servo.angle)
 
-try:
-    init_servos(2)
-    loop()
-except:
-    print('done')
+
+init_servos(2)
+loop()
