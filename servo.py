@@ -15,15 +15,13 @@ class Servo:
         kit.servo[self.pinout].angle = 0
         self.angle = 0
 
-    def move(self, angle):
-        self.target_angle = angle
-        if round(self.angle) != self.target_angle:
-            kit.servo[self.pinout].angle = self.target_angle
-
+    def move(self, target_angle):
         self.angle = kit.servo[self.pinout].angle
-        
-        # print(round(self.angle), self.target_angle)
-
+        if abs(self.angle - target_angle) < 0.01:
+            self.target_angle = target_angle
+        else:
+            kit.servo[self.pinout].angle = target_angle
+            
     def update_angle(self):
         self.angle = kit.servo[self.pinout].angle
 
