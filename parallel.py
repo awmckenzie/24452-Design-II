@@ -57,8 +57,8 @@ def poll():
     while(True):
         fake_input(time.time_ns())
         
-        #for i in range(actuators):
-        #    servos[i].move(servo_targets[i])
+        for i in range(actuators):
+            servos[i].move(servo_targets[i])
 
         # time.sleep(1)
 
