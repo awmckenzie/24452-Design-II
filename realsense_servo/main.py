@@ -21,7 +21,7 @@ def main():
         pipeline = rs.pipeline()
 
         rs_config = rs.config()
-        config.enable_stream(rs.stream.depth, cfg['x_res'], cfg['y_res'], rs.format.z16, cfg['fps'])
+        rs_config.enable_stream(rs.stream.depth, cfg['x_res'], cfg['y_res'], rs.format.z16, cfg['fps'])
 
         frame_queue = rs.frame_queue(cfg['queue_size'], keep_frames=True)
 
