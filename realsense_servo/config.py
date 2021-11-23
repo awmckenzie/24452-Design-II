@@ -3,9 +3,9 @@ def config():
         'actuators':        8,
         'x_res':            640,
         'y_res':            480,
-        'fps':              15,
+        'fps':              30,
 
-        'queue_size':     1,
+        'queue_size':       50,
         'decimation_level': 4,
 
         'min_dist':         600,
