@@ -57,7 +57,7 @@ def main():
             for i in range(i_iter):
                 for j in range(j_iter):
                     if depth_image[i,j] < cfg['max_dist'] and depth_image[i,j] > cfg['min_dist']:
-                        ind = j//j_iter
+                        ind = j//cfg['actuators']
                         depths[ind] += depth_image[i,j]
                         counts[ind] += 1
 
@@ -66,6 +66,7 @@ def main():
                     depths[i] = int(depths[i] / counts[i])
                     servo_targets[i] = round(180 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
             print(servo_targets)
+
             for i in range(cfg['actuators']):
                 servos[i].move(servo_targets[i])
             
