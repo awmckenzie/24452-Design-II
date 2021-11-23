@@ -35,8 +35,6 @@ def main():
 
         pipeline.start(rs_config, frame_queue)
 
-        i_iter = int(cfg['y_res']/cfg['depth_decimation_level'])
-        j_iter = int(cfg['x_res']/cfg['depth_decimation_level'])
         #############################################
 
         while(True):
