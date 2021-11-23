@@ -3,7 +3,7 @@ def config():
         'actuators':        8,
         'x_res':            1280,
         'y_res':            720,
-        'fps':              15,
+        'fps':              30,
 
         'queue_size':       1,
         'decimation_level': 6,
