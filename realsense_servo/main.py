@@ -60,13 +60,15 @@ def main():
                         ind = j//j_iter
                         depths[ind] += depth_image[i,j]
                         counts[ind] += 1
+
             for i in range(cfg['actuators']):
                 if counts[i] > 0:
                     depths[i] = int(depths[i] / counts[i])
                     servo_targets[i] = round(180 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
-            
+            print(servo_targets)
             for i in range(cfg['actuators']):
                 servos[i].move(servo_targets[i])
+            
             depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', depth_colormap)
