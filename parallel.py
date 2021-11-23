@@ -47,15 +47,10 @@ def init_servos(num_servos):
             #print(s.angle)
 
 def poll():
-
-    servos[0].move(0)
-    servos[0].move(180)
-    servos[0].move(0)
-    servos[0].move(180)
-    servos[0].move(0)
-    servos[0].move(180)
-    servos[0].move(0)
-    servos[0].move(180)
+    while(True):
+        servos[0].move(0)
+        servos[0].move(180)
+    
     
 
     while(False):
