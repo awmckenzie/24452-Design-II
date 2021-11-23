@@ -76,11 +76,11 @@ def main():
 
             for i in range(cfg['actuators']):
                 if counts[i] > 50:
-                    servo_targets[i] = round(180 * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
+                    servo_targets[i] = round(90 * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
             print(servo_targets)
 
-            for i in range(cfg['actuators']):
-                servos[i].move(servo_targets[i])
+            # for i in range(cfg['actuators']):
+            #     servos[i].move(servo_targets[i])
             
             depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
