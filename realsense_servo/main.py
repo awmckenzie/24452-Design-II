@@ -33,7 +33,31 @@ def main():
         disparity2depth = rs.disparity_transform(False)
 
         pipeline.start(rs_config, frame_queue)
+
+        i_iter = int(cfg['y_res']/cfg['decimation_level'])
+        j_iter = int(cfg['x_res']/cfg['decimation_level'])
         #############################################
+
+        while(True):
+            frame = frame_queue.wait_for_frame()
+            depth_frame = frame.as_frameset().get_depth_frame()
+            depth_frame_filtered = depth_frame
+
+            depth_frame_filtered = decimation_filter.process(depth_frame_filtered)
+            depth_frame_filtered = depth2disparity.process(depth_frame_filtered)
+            depth_frame_filtered = spatial_filter.process(depth_frame_filtered)
+            depth_frame_filtered = temporal_filter.process(depth_frame_filtered)
+            depth_frame_filtered = disparity2depth.process(depth_frame_filtered)
+            depth_frame_filtered = hole_filter.process(depth_frame_filtered)
+
+            depth_image = np.asanyarray(depth_frame_filtered.get_data())
+            # for i in range(i_iter):
+            #     for j in range(j_iter):
+
+            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
+            cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
+            cv2.imshow('RealSense', depth_colormap)
+            cv2.waitKey(1)
 
     finally:
         pipeline.stop()
