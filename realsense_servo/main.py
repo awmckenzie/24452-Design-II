@@ -13,10 +13,10 @@ def main():
         
         kit = ServoKit(channels=16)
         servos = []
-        servo_targets = [0, 0, 0, 0, 0, 0, 0, 0] # 0 to 180 degrees
-        depths = [0, 0, 0, 0, 0, 0, 0, 0] # 600 to 2000 mm
+        #servo_targets = [0, 0, 0, 0, 0, 0, 0, 0] # 0 to 180 degrees
+        #depths = [0, 0, 0, 0, 0, 0, 0, 0] # 600 to 2000 mm
         
-        servo.init_servos(servos, cfg['actuators'])
+        servos = servo.init_servos(servos, cfg['actuators'])
         ###########################################
         pipeline = rs.pipeline()
 
@@ -51,9 +51,22 @@ def main():
             depth_frame_filtered = hole_filter.process(depth_frame_filtered)
 
             depth_image = np.asanyarray(depth_frame_filtered.get_data())
-            # for i in range(i_iter):
-            #     for j in range(j_iter):
-
+            depths = np.zeros(cfg['actuators'])
+            servo_targets = np.zeros(cfg['actuators'])
+            counts = np.zeros(cfg['actuators'])
+            for i in range(i_iter):
+                for j in range(j_iter):
+                    if depth_image[i,j] > cfg['max_dist'] or depth_image[i,j] < cfg['min_dist']:
+                        ind = j//j_iter
+                        depths[ind] += depth_image[i,j]
+                        counts[ind] += 1
+            for i in range(cfg['actuators']):
+                if counts[i] > 0:
+                    depths[i] = int(depths[i] / counts[i])
+                    servo_targets[i] = round(180 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
+            
+            for i in range(cfg['actuators']):
+                servos[i].move(servo_targets[i])
             depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', depth_colormap)
