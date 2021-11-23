@@ -51,20 +51,30 @@ def main():
             #depth_frame_filtered = hole_filter.process(depth_frame_filtered)
 
             depth_image = np.asanyarray(depth_frame_filtered.get_data())
+            # depth_image_cv = np.asanyarray(depth_frame.get_data())
+
             depths = np.zeros(cfg['actuators'])
             servo_targets = np.zeros(cfg['actuators'])
             counts = np.zeros(cfg['actuators'])
-            for i in range(i_iter):
-                for j in range(j_iter):
-                    if depth_image[i,j] < cfg['max_dist'] and depth_image[i,j] > cfg['min_dist']:
-                        div = int(j_iter/cfg['actuators'])
-                        ind = j//div
-                        depths[ind] += depth_image[i,j]
-                        counts[ind] += 1
+
+            # depth_filtered = depth_image > cfg['min_dist'] and depth_image < cfg['max_dist']
+            depth_image_split = np.hsplit(depth_image, cfg['actuators'])
+            for i in range(cfg['actuators']):
+                depth_filtered = np.where((depth_image_split[i] < cfg['max_dist']) and (depth_image_split[i] > cfg['min_dist']), depth_image_split[i], 0)
+                depths[i] = np.mean(depth_filtered)
+                counts[i] = np.count_nonzero(depth_filtered)
+            # for i in range(i_iter):
+            #     for j in range(j_iter):
+            #         if depth_image[i,j] < cfg['max_dist'] and depth_image[i,j] > cfg['min_dist']:
+            #             div = int(j_iter/cfg['actuators'])
+            #             ind = j//div
+            #             depths[ind] += depth_image[i,j]
+            #             counts[ind] += 1
+
+
 
             for i in range(cfg['actuators']):
                 if counts[i] > 50:
-                    depths[i] = int(depths[i] / counts[i])
                     servo_targets[i] = round(180 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
             print(servo_targets)
 
