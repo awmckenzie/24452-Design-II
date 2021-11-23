@@ -59,7 +59,6 @@ def main():
                     if depth_image[i,j] < cfg['max_dist'] and depth_image[i,j] > cfg['min_dist']:
                         div = int(j_iter/cfg['actuators'])
                         ind = j//div
-                        print(ind)
                         depths[ind] += depth_image[i,j]
                         counts[ind] += 1
 
