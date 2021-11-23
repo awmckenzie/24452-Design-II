@@ -48,7 +48,7 @@ def main():
             depth_frame_filtered = spatial_filter.process(depth_frame_filtered)
             depth_frame_filtered = temporal_filter.process(depth_frame_filtered)
             depth_frame_filtered = disparity2depth.process(depth_frame_filtered)
-            #depth_frame_filtered = hole_filter.process(depth_frame_filtered)
+            depth_frame_filtered = hole_filter.process(depth_frame_filtered)
 
             depth_image = np.asanyarray(depth_frame_filtered.get_data())
             # depth_image_cv = np.asanyarray(depth_frame.get_data())
@@ -76,7 +76,7 @@ def main():
 
             for i in range(cfg['actuators']):
                 if counts[i] > 50:
-                    servo_targets[i] = round(180 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
+                    servo_targets[i] = round(180 * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
             print(servo_targets)
 
             for i in range(cfg['actuators']):
