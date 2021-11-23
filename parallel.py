@@ -15,8 +15,17 @@ depth_refresh = 0.07 # ~15 Hz
 min_range = 600
 max_range = 2000
 
+servo_pos_zero = True
 def fake_input(time):
+    for i in range(actuators):
+        if servo_pos_zero:
+            servo_targets[i] = 0
+        else:
+            servo_targets[i] = 180
+        servo_pos_zero = not servo_pos_zero
+
     #print(round(time,2) - round(time))
+    """
     if (round(round(time,2) - round(time),2)) % depth_refresh == 0:
         for i in range(actuators):
             depths[i] = random.randint(min_range, max_range)
@@ -24,6 +33,8 @@ def fake_input(time):
         print(depths)
         #print(servo_targets)
         #print()
+    """
+    
 
 
 def init_servos(num_servos):
@@ -36,7 +47,19 @@ def init_servos(num_servos):
             #print(s.angle)
 
 def poll():
-    while(True):
+
+    servo[0].move(0)
+    servo[0].move(180)
+    servo[0].move(0)
+    servo[0].move(180)
+    servo[0].move(0)
+    servo[0].move(180)
+    servo[0].move(0)
+    servo[0].move(180)
+    servo[0].move(0)
+    servo[0].move(180)
+    
+    while(False):
         fake_input(time.time())
         
         for i in range(actuators):
