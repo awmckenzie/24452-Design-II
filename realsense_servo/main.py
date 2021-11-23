@@ -56,7 +56,7 @@ def main():
             counts = np.zeros(cfg['actuators'])
             for i in range(i_iter):
                 for j in range(j_iter):
-                    if depth_image[i,j] > cfg['max_dist'] or depth_image[i,j] < cfg['min_dist']:
+                    if depth_image[i,j] < cfg['max_dist'] and depth_image[i,j] > cfg['min_dist']:
                         ind = j//j_iter
                         depths[ind] += depth_image[i,j]
                         counts[ind] += 1
