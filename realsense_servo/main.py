@@ -63,7 +63,7 @@ def main():
                         counts[ind] += 1
 
             for i in range(cfg['actuators']):
-                if counts[i] > 0:
+                if counts[i] > 50:
                     depths[i] = int(depths[i] / counts[i])
                     servo_targets[i] = round(180 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
             print(servo_targets)
