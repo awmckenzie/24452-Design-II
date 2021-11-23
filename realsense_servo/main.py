@@ -25,7 +25,8 @@ def main():
 
         frame_queue = rs.frame_queue(cfg['queue_size'], keep_frames=True)
 
-        decimation_filter = rs.decimation_filter(cfg['decimation_level'])
+        decimation_filter_depth = rs.decimation_filter(cfg['depth_decimation_level'])
+        decimation_filter_cv = rs.decimation_filter(cfg['cv_decimation_level'])
         hole_filter = rs.hole_filling_filter()
         spatial_filter = rs.spatial_filter(0.5, 20, 5, 0)
         temporal_filter = rs.temporal_filter()
@@ -42,16 +43,19 @@ def main():
             frame = frame_queue.wait_for_frame()
             depth_frame = frame.as_frameset().get_depth_frame()
             depth_frame_filtered = depth_frame
+            depth_frame_cv = depth_frame
 
-            depth_frame_filtered = decimation_filter.process(depth_frame_filtered)
+            depth_frame_filtered = decimation_filter_depth.process(depth_frame_filtered)
             depth_frame_filtered = depth2disparity.process(depth_frame_filtered)
             depth_frame_filtered = spatial_filter.process(depth_frame_filtered)
             depth_frame_filtered = temporal_filter.process(depth_frame_filtered)
             depth_frame_filtered = disparity2depth.process(depth_frame_filtered)
             #depth_frame_filtered = hole_filter.process(depth_frame_filtered)
 
+            depth_frame_cv = decimation_filter_cv.process(depth_frame_cv)
+
             depth_image = np.asanyarray(depth_frame_filtered.get_data())
-            depth_image_cv = np.asanyarray(depth_frame.get_data())
+            depth_image_cv = np.asanyarray(depth_frame_cv.get_data())
 
             depths = np.zeros(cfg['actuators'])
             servo_targets = np.zeros(cfg['actuators'])
