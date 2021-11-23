@@ -7,6 +7,7 @@ def config():
 
         'queue_size':       1,
         'decimation_level': 6,
+        'min_count':        50,
 
         'min_dist':         600,
         'max_dist':         2000

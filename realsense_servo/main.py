@@ -51,7 +51,7 @@ def main():
             #depth_frame_filtered = hole_filter.process(depth_frame_filtered)
 
             depth_image = np.asanyarray(depth_frame_filtered.get_data())
-            # depth_image_cv = np.asanyarray(depth_frame.get_data())
+            depth_image_cv = np.asanyarray(depth_frame.get_data())
 
             depths = np.zeros(cfg['actuators'])
             servo_targets = np.zeros(cfg['actuators'])
@@ -75,14 +75,14 @@ def main():
 
 
             for i in range(cfg['actuators']):
-                if counts[i] > 50:
+                if counts[i] > cfg['min_count']:
                     servo_targets[i] = round(90 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
             print(servo_targets)
 
             for i in range(cfg['actuators']):
                 servos[i].move(servo_targets[i])
             
-            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
+            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image_cv, alpha=0.03), cv2.COLORMAP_JET)
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', depth_colormap)
             cv2.waitKey(1)
