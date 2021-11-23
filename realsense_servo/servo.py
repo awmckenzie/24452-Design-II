@@ -22,5 +22,10 @@ class Servo:
     def update_angle(self):
         self.angle = kit.servo[self.pinout].angle
 
+def init_servos(servos, num_servos):
+    for i in range(num_servos):
+        servos.append(Servo(i))
 
-
+    for s in servos:
+            s.zero()
+            s.update_angle()

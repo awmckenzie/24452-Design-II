@@ -7,8 +7,8 @@ actuators = 8
 x_res = 640
 y_res = 480
 fps = 30
-queue_size = 1
-decimation_level = 4
+queue_size = 50
+decimation_level = 1
 min_dist = 600
 max_dist = 2000
 
@@ -42,7 +42,7 @@ try:
 
     while(True):
         t1 = t.time()
-        print(t1)
+        #print(t1)
         frame = frame_queue.wait_for_frame()
         #frame = pipeline.wait_for_frames()
         depth_frame = frame.as_frameset().get_depth_frame()
@@ -55,13 +55,13 @@ try:
         depth_frame_filtered = spatial_filter.process(depth_frame_filtered)
         depth_frame_filtered = temporal_filter.process(depth_frame_filtered)
         depth_frame_filtered = disparity2depth.process(depth_frame_filtered)
-#        depth_frame_filtered = hole_filter.process(depth_frame_filtered)
+        depth_frame_filtered = hole_filter.process(depth_frame_filtered)
 
         t3 = t.time() # time to filter
         depth_image = np.asanyarray(depth_frame_filtered.get_data())
-        for i in range(i_iter):
-            for j in range(j_iter):
-                  ind = (i,j)
+        # for i in range(i_iter):
+        #     for j in range(j_iter):
+        #           ind = (i,j)
                 # if type(depth_image[i,j]) is not np.uint16:
                 #     depth_image[i,j] = 0
 #                if depth_image[i,j] > max_dist or depth_image[i,j] < min_dist:
@@ -73,8 +73,8 @@ try:
         cv2.imshow('RealSense', depth_colormap)
         cv2.waitKey(1)
         t5 = t.time()
-        print(t5)
-        print()
+        #print(t5)
+        #print()
         q_time_avg += t2-t1
         filter_time_avg += t3-t2
         loop_time_avg += t4-t3
