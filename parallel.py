@@ -48,17 +48,16 @@ def init_servos(num_servos):
 
 def poll():
 
-    servo[0].move(0)
-    servo[0].move(180)
-    servo[0].move(0)
-    servo[0].move(180)
-    servo[0].move(0)
-    servo[0].move(180)
-    servo[0].move(0)
-    servo[0].move(180)
-    servo[0].move(0)
-    servo[0].move(180)
+    servos[0].move(0)
+    servos[0].move(180)
+    servos[0].move(0)
+    servos[0].move(180)
+    servos[0].move(0)
+    servos[0].move(180)
+    servos[0].move(0)
+    servos[0].move(180)
     
+
     while(False):
         fake_input(time.time())
         
