@@ -15,7 +15,7 @@ class Servo:
 
     def move(self, target_angle):
         self.angle = kit.servo[self.pinout].angle
-        if abs(self.angle - target_angle) < 0.01:
+        if abs(self.angle - target_angle) < 0.005:
             self.target_angle = target_angle
         else:
             kit.servo[self.pinout].angle = target_angle
