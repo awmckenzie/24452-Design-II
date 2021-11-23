@@ -6,7 +6,7 @@ def config():
         'fps':              15,
 
         'queue_size':       1,
-        'decimation_level': 8,
+        'decimation_level': 4,
 
         'min_dist':         600,
         'max_dist':         2000
