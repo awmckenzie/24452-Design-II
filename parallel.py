@@ -30,7 +30,7 @@ def fake_input(time):
     if (round(round(time,2) - round(time),2)) % depth_refresh == 0:
         for i in range(actuators):
             # depths[i] = random.randint(min_range, max_range)
-            depths = ((time - start_time)/1000000) % 180
+            depths = ((time - start_time)/100000000) % 180
             servo_targets[i] = depths #round(180 * (depths[i] - min_range) / (max_range - min_range))
         print(depths)
         #print(servo_targets)
