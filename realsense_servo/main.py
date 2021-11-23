@@ -48,7 +48,7 @@ def main():
             depth_frame_filtered = spatial_filter.process(depth_frame_filtered)
             depth_frame_filtered = temporal_filter.process(depth_frame_filtered)
             depth_frame_filtered = disparity2depth.process(depth_frame_filtered)
-            depth_frame_filtered = hole_filter.process(depth_frame_filtered)
+            #depth_frame_filtered = hole_filter.process(depth_frame_filtered)
 
             depth_image = np.asanyarray(depth_frame_filtered.get_data())
             # depth_image_cv = np.asanyarray(depth_frame.get_data())
