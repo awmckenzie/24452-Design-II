@@ -1,11 +1,11 @@
 def config():
     config = {
         'actuators':        8,
-        'x_res':            640,
-        'y_res':            480,
-        'fps':              30,
+        'x_res':            480,
+        'y_res':            360,
+        'fps':              15,
 
-        'queue_size':       50,
+        'queue_size':       1,
         'decimation_level': 4,
 
         'min_dist':         600,
