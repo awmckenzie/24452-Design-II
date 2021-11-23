@@ -10,8 +10,8 @@ class Servo:
         self.target_angle = 0
 
     def zero(self):
-        kit.servo[self.pinout].angle = 0
-        self.angle = 0
+        kit.servo[self.pinout].angle = 90
+        self.angle = 90
 
     def move(self, target_angle):
         self.angle = kit.servo[self.pinout].angle
