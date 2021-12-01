@@ -82,7 +82,7 @@ def main():
             	if counts[i] > cfg['min_count']:
                     servo_targets[i] = round(90 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
                 if i in opposite:
-                	servo_targets[i] = -servo_targets[i] + 90
+                    servo_targets[i] = -servo_targets[i] + 90
 
             print(servo_targets)
 
@@ -95,7 +95,7 @@ def main():
             cv2.waitKey(1)
 
     finally:
-        pipeline.stop()
+        pipeline.stop()s
         print('hi')
 
 if __name__ == '__main__':
