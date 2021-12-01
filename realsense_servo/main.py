@@ -6,6 +6,8 @@ from adafruit_servokit import ServoKit
 import servo
 import config
 
+opposite = {7,6,3,2}
+
 def main():
     try:
         cfg = config.config() # init configuration; all constants are stored in config.py
@@ -79,7 +81,7 @@ def main():
             for i in range(cfg['actuators']):
             	if counts[i] > cfg['min_count']:
                     servo_targets[i] = round(90 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
-                if i in {7,6,3,2}:
+                if i in opposite:
                 	servo_targets[i] = -servo_targets[i] + 90
 
             print(servo_targets)
