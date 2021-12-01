@@ -1,6 +1,6 @@
 import numpy as np
-kit = ServoKit(channels=16)
 from adafruit_servokit import ServoKit
+kit = ServoKit(channels=16)
 
 # set angle to zero
 kit.servo[6].angle = 0
