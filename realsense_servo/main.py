@@ -81,12 +81,12 @@ def main():
             for i in range(cfg['actuators']):
             	if counts[i] > cfg['min_count']:
                     servo_targets[i] = round(90 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
-                if i in opposite:
-                    servo_targets[i] = -servo_targets[i] + 90
 
             print(servo_targets)
 
             for i in range(cfg['actuators']):
+                if i in opposite:
+                    servo_targets[i] = -servo_targets[i] + 90
                 servos[i].move(servo_targets[i])
             
             depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
