@@ -95,7 +95,7 @@ def main():
             cv2.waitKey(1)
 
     finally:
-        pipeline.stop()s
+        pipeline.stop()
         print('hi')
 
 if __name__ == '__main__':
