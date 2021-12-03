@@ -26,7 +26,7 @@ class Servo:
         if abs(self.angle - target_angle) < 0.005:
             self.target_angle = target_angle
         else:
-            kit.servo[self.pinout].angle = target_angle
+            kit.servo[self.pinout].angle = self.target_angle
 
     def update_angle(self):
         self.angle = kit.servo[self.pinout].angle
