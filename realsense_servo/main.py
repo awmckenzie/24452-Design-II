@@ -80,13 +80,13 @@ def main():
             ##### calculate servo angle
             for i in range(cfg['actuators']):
             	if counts[i] > cfg['min_count']:
-                    servo_targets[i] = round(90 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
+                    servo_targets[i] = round(45 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
 
             print(servo_targets)
 
             for i in range(cfg['actuators']):
                 if i in opposite:
-                    servo_targets[i] = -servo_targets[i] + 90
+                    servo_targets[i] = -servo_targets[i] + 45
                 servos[i].move(servo_targets[i])
             
             depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
