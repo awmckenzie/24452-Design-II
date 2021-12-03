@@ -9,7 +9,7 @@ class Servo:
         self.angle = 0
         self.target_angle = 0
 
-        if pinout % 2 == 0:
+        if pinout==0 or pinout==1 or pinout==4 or pinout==5:
             self.mirrored = -1
         else:
             self.mirrored = 1
@@ -25,7 +25,8 @@ class Servo:
         self.angle = kit.servo[self.pinout].angle
         if abs(self.angle - target_angle) > 0.005:
             self.target_angle = target_angle
-            kit.servo[self.pinout].angle = self.mirrored * self.target_angle
+            print(self.mirrored * self.target_angle)
+            kit.servo[self.pinout].angle = int(self.mirrored * self.target_angle)
 
     def update_angle(self):
         self.angle = kit.servo[self.pinout].angle
