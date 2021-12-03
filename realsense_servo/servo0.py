@@ -5,4 +5,4 @@ kit = ServoKit(channels=16)
 for i in [2,3,6,7]:
   kit.servo[i].angle = 0
 for i in [0,1,4,5]:
-  kit.servo[i].angle = 90
+  kit.servo[i].angle = 0
