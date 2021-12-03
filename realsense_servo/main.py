@@ -6,8 +6,6 @@ from adafruit_servokit import ServoKit
 import servo
 import config
 
-opposite = {7,6,3,2}
-
 def main():
     try:
         cfg = config.config() # init configuration; all constants are stored in coSnfig.py
