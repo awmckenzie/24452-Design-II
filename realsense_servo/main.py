@@ -10,7 +10,7 @@ opposite = {7,6,3,2}
 
 def main():
     try:
-        cfg = config.config() # init configuration; all constants are stored in config.py
+        cfg = config.config() # init configuration; all constants are stored in coSnfig.py
 
         ###########################################
         # servo initiation
@@ -19,7 +19,7 @@ def main():
         #servo_targets = [0, 0, 0, 0, 0, 0, 0, 0] # 0 to 180 degrees
         #depths = [0, 0, 0, 0, 0, 0, 0, 0] # 600 to 2000 mm
         
-        servos = servo.init_servos(servos, cfg['actuators'])
+        servos = servo.init_servos(servos, cfg['actuators'], cfg['servo_min_angles'], cfg['servo_max_angles'])
 
         ###########################################
         # intel realsense initiation
@@ -80,13 +80,11 @@ def main():
             ##### calculate servo angle
             for i in range(cfg['actuators']):
             	if counts[i] > cfg['min_count']:
-                    servo_targets[i] = round(45 * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
+                    servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
 
             print(servo_targets)
 
             for i in range(cfg['actuators']):
-                if i in opposite:
-                    servo_targets[i] = -servo_targets[i] + 45
                 servos[i].move(servo_targets[i])
             
             depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
@@ -96,7 +94,7 @@ def main():
 
     finally:
         pipeline.stop()
-        print('hi')
+        print('pipeline stop')
 
 if __name__ == '__main__':
     main()
