@@ -11,7 +11,7 @@ def main():
         cfg = config.config() # init configuration; all constants are stored in coSnfig.py
 
         ###########################################
-        # servo initiation
+        # servo initialization
         kit = ServoKit(channels=16)
         servos = []
         #servo_targets = [0, 0, 0, 0, 0, 0, 0, 0] # 0 to 180 degrees
@@ -78,7 +78,7 @@ def main():
             ##### calculate servo angle
             for i in range(cfg['actuators']):
             	if counts[i] > cfg['min_count']:
-                    servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
+                    servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
 
             print(servo_targets)
 
