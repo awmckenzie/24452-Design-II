@@ -14,6 +14,6 @@ def config():
         'max_dist':                 2000,
 
         'servo_min_angles':         [0,  0,  0,  0,  0,  0,  0,  0],
-        'servo_max_angles':         [45, 45, 45, 45, 45, 45, 45, 45]
+        'servo_max_angles':         [90, 90, 90, 90, 90, 90, 90, 90]
     }
     return config
