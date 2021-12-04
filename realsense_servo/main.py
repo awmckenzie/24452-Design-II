@@ -69,7 +69,7 @@ def main():
             for i in range(cfg['actuators']):
             	# if any of the column's depths (> max dist) or (< min dist), change value to zero
                 depth_filtered = np.where((depth_image_split[i] > cfg['min_dist']), depth_image_split[i], 0)
-                depth_filtered = np.where((depth_image_split[i] > cfg['max_dist']), depth_image_split[i], 2000)
+                depth_filtered = np.where((depth_image_split[i] > cfg['max_dist']), depth_image_split[i], 0)
                 
        			# if column has nonzero depth, take avg of col and return
                 counts[i] = np.count_nonzero(depth_filtered)
