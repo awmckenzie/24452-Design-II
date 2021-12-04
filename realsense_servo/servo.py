@@ -22,13 +22,13 @@ class Servo:
         self.angle = 0
 
     def move(self, target_angle):
-        self.angle = kit.servo[self.pinout].angle
         if self.mirrored:
                 target_angle = -target_angle
         if abs(self.angle - target_angle) > 0.005:
             self.target_angle = target_angle
             print(self.target_angle)
             kit.servo[self.pinout].angle = self.target_angle
+            self.angle = kit.servo[self.pinout].angle
 
     def update_angle(self):
         self.angle = kit.servo[self.pinout].angle
