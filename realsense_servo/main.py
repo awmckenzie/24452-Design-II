@@ -68,7 +68,8 @@ def main():
 
             for i in range(cfg['actuators']):
             	# if any of the column's depths (> max dist) or (< min dist), change value to zero
-                depth_filtered = np.where((depth_image_split[i] < cfg['max_dist']) & (depth_image_split[i] > cfg['min_dist']), depth_image_split[i], 0)
+                depth_filtered = np.where((depth_image_split[i] > cfg['min_dist']), depth_image_split[i], 0)
+                depth_filtered = np.where((depth_image_split[i] > cfg['max_dist']), depth_image_split[i], 2000)
                 
        			# if column has nonzero depth, take avg of col and return
                 counts[i] = np.count_nonzero(depth_filtered)
@@ -80,7 +81,8 @@ def main():
             	if counts[i] > cfg['min_count']:
                     servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
 
-            print(servo_targets)
+            #print(servo_targets)
+            print(kit.servo[0].angle)
 
             for i in range(cfg['actuators']):
                 servos[i].move(servo_targets[i])
