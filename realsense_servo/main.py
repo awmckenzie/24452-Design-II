@@ -36,7 +36,7 @@ def main():
         spatial_filter = rs.spatial_filter(0.5, 20, 5, 0)
 
         # time averaging
-        temporal_filter = rs.temporal_filter() 
+        temporal_filter = rs.temporal_filter(0.4, 20, 8) 
 
         # transform into 1/D domain to decrease depth noise
         depth2disparity = rs.disparity_transform()
