@@ -10,7 +10,8 @@ import config
 def main():
     try:
         cfg = config.config() # init configuration; all constants are stored in config.py
-
+        min_count = int(cfg['min_count'] * (cfg['x_res'] / cfg['decimation_filter_depth']) * (cfg['x_res'] / cfg['decimation_filter_depth']) / cfg['actuators'])
+        ipdb.set_trace()
         ###########################################
         kit = ServoKit(channels=16)
         servos = []
@@ -71,6 +72,7 @@ def main():
             servo_targets = np.zeros(cfg['actuators'])
             counts = np.zeros(cfg['actuators'])
 
+            depth_image = depth_image
             ##### split depth map into 8 cols
             depth_image_split = np.hsplit(depth_image, cfg['actuators'])
 
@@ -83,10 +85,14 @@ def main():
                     depths[i] = np.mean(depth_image_split[i][depth_image_split[i] != 0])
                     
                 else:
-                    if np.var(depth_image_split[i]) / np.average(depth_image_split[i]) > 1:
-                        depths[i] = cfg['min_dist']
-                    else:
+                    if np.average(depth_image_split[i] > cfg['max_dist']):
                         depths[i] = cfg['max_dist']
+                    else:
+                        depths[i] = cfg['min_dist']
+                    # if np.var(depth_image_split[i]) / np.average(depth_image_split[i]) > 1:
+                    #     depths[i] = cfg['min_dist']
+                    # else:
+                    #     depths[i] = cfg['max_dist']
                 
                 servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
 
