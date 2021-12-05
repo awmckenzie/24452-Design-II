@@ -75,23 +75,22 @@ def main():
             depth_image_split = np.hsplit(depth_image, cfg['actuators'])
 
             for i in range(cfg['actuators']):
-            	# if any of the column's depths (> max dist) or (< min dist), change value to zero
-                depth_filtered = np.where((depth_image_split[i] > cfg['max_dist']), 0, depth_image_split[i])
-                #ipdb.set_trace()
-                depth_filtered = np.where((depth_filtered < cfg['min_dist']), 0, depth_filtered)
-                
-       			# if column has nonzero depth, take avg of col and return
-                counts[i] = np.count_nonzero(depth_filtered)
-                if counts[i] > 0:
+                counts[i] = np.count_nonzero(depth_image_split[i] > cfg['min_dist'] & depth_image_split[i] < cfg['max_dist'])
+
+                if counts[i] > cfg['min_count']:
+                    depth_image_split[i] = np.where((depth_image_split[i] > cfg['max_dist']), 0, depth_image_split[i])
+                    depth_image_split[i] = np.where((depth_image_split[i] < cfg['min_dist']), 0, depth_image_split[i])
                     depths[i] = np.mean(depth_filtered[depth_filtered != 0])
+                    
+                else:
+                    if np.mean(depth_image_split[i]) >= cfg['max_dist']:
+                        depths[i] = cfg['max_dist']
+                    else: 
+                        depths[i] = cfg['min_dist']
+                
+                servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
 
                 #ipdb.set_trace()
-
-            ##### calculate servo angle
-            for i in range(cfg['actuators']):
-            	if counts[i] > cfg['min_count']:
-                    servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
-            #ipdb.set_trace()
             print(servo_targets)
             for i in range(cfg['actuators']):
                 servos[i].move(servo_targets[i])

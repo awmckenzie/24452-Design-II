@@ -6,7 +6,7 @@ def config():
         'fps':                      30,
 
         'queue_size':               1,
-        'depth_decimation_level':   6,
+        'depth_decimation_level':   5,
         'cv_decimation_level':      4,
         'min_count':                50,
 
