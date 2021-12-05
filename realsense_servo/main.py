@@ -60,8 +60,8 @@ def main():
         while(True):
             frame = frame_queue.wait_for_frame()
             depth_frame = frame.as_frameset().get_depth_frame()
-            depth_frame_filtered = np.copy(depth_frame)
-            depth_frame_cv = np.copy(depth_frame)
+            depth_frame_filtered = depth_frame
+            #depth_frame_cv = np.copy(depth_frame)
 
             depth_frame_filtered = decimation_filter_depth.process(depth_frame_filtered)
             depth_frame_filtered = depth2disparity.process(depth_frame_filtered)
@@ -70,9 +70,9 @@ def main():
             depth_frame_filtered = disparity2depth.process(depth_frame_filtered)
             #depth_frame_filtered = hole_filter.process(depth_frame_filtered)
 
-            depth_frame_cv = decimation_filter_cv.process(depth_frame_cv)
+            #depth_frame_cv = decimation_filter_cv.process(depth_frame_cv)
 
-            depth_image_cv = np.asanyarray(depth_frame_filtered)
+            #depth_image_cv = np.asanyarray(depth_frame_filtered)
             depth_image = np.asanyarray(depth_frame_filtered.get_data())
 
             depths = np.zeros(cfg['actuators'])
@@ -110,7 +110,7 @@ def main():
             for i in range(cfg['actuators']):
                 servos[i].move(servo_targets[i])
             
-            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image_cv, alpha=0.03), cv2.COLORMAP_JET)
+            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', depth_colormap)
             cv2.waitKey(1) # delay 1ms
