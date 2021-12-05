@@ -8,7 +8,7 @@ def config():
         'queue_size':               1,
         'depth_decimation_level':   5,
         'cv_decimation_level':      4,
-        'min_count':                500,
+        'min_count':                200,
 
         'min_dist':                 600,
         'max_dist':                 2000,
