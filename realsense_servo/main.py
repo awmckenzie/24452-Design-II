@@ -76,9 +76,9 @@ def main():
 
             for i in range(cfg['actuators']):
             	# if any of the column's depths (> max dist) or (< min dist), change value to zero
-                depth_filtered = np.where((depth_image_split[i] > cfg['max_dist']), 2000, depth_image_split[i])
+                depth_filtered = np.where((depth_image_split[i] > cfg['max_dist']), 600, depth_image_split[i])
                 #ipdb.set_trace()
-                depth_filtered = np.where((depth_filtered < cfg['min_dist']), 0, depth_filtered)
+                depth_filtered = np.where((depth_filtered < cfg['min_dist']), 2000, depth_filtered)
                 
        			# if column has nonzero depth, take avg of col and return
                 counts[i] = np.count_nonzero(depth_filtered)
