@@ -84,9 +84,9 @@ def main():
                     
                 else:
                     if np.var(depth_image_split[i] > 3):
-                        depths[i] = cfg['max_dist']
-                    else:
                         depths[i] = cfg['min_dist']
+                    else:
+                        depths[i] = cfg['max_dist']
                 
                 servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
 
