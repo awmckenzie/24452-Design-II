@@ -15,7 +15,6 @@ def main():
         cols = cfg['y_res'] / cfg['depth_decimation_level']
         min_count = int(cfg['min_count'] * rows * cols / cfg['actuators'])
 
-        ipdb.set_trace()
         ###########################################
         kit = ServoKit(channels=16)
         servos = []
