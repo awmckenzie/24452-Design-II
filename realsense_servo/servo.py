@@ -35,9 +35,9 @@ class Servo:
     def update_angle(self):
         self.angle = kit.servo[self.pinout].angle
 
-def init_servos(servos, num_servos, min_angles, max_angles):
+def init_servos(servos, num_servos, min_angles):
     for i in range(num_servos):
-        servos.append(Servo(i, min_angles[i], max_angles[i]))
+        servos.append(Servo(i, min_angles[i]))
 
     max_offset = np.max(min_angles)
 
