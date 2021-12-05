@@ -1,9 +1,10 @@
 from adafruit_servokit import ServoKit
 import time
+import numpy as np
 kit = ServoKit(channels=16)
 
 class Servo:
-    def __init__(self, pinout, min_angle, max_angle):
+    def __init__(self, pinout, min_angle):
         self.pinout = pinout
 
         self.angle = 0
@@ -15,11 +16,11 @@ class Servo:
             self.mirrored = False
         
         self.min_angle = min_angle
-        self.max_angle = max_angle
+        self.max_angle = None
 
         self.zero_point = 90 # angle for the central position
 
-    def zero(self, min_angle):
+    def zero(self):
         self.move(self.min_angle)
         self.angle = kit.servo[self.pinout].angle
 
@@ -38,8 +39,12 @@ def init_servos(servos, num_servos, min_angles, max_angles):
     for i in range(num_servos):
         servos.append(Servo(i, min_angles[i], max_angles[i]))
 
+    max_offset = np.max(min_angles)
+
     for i in range(num_servos):
-            servos[i].zero(min_angles[i])
+            servos[i].zero()
             servos[i].update_angle()
+
+            servos[i].max_angle = 90 - max_offset + servos[i].min_angle
     
     return servos

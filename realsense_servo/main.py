@@ -17,7 +17,7 @@ def main():
         #servo_targets = [0, 0, 0, 0, 0, 0, 0, 0] # 0 to 180 degrees
         #depths = [0, 0, 0, 0, 0, 0, 0, 0] # 600 to 2000 mm
         
-        servos = servo.init_servos(servos, cfg['actuators'], cfg['servo_min_angles'], cfg['servo_max_angles'])
+        servos = servo.init_servos(servos, cfg['actuators'], cfg['servo_zero_offset'])
 
         ###########################################
         pipeline = rs.pipeline()

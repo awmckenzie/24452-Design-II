@@ -13,7 +13,6 @@ def config():
         'min_dist':                 600,
         'max_dist':                 2000,
 
-        'servo_min_angles':         [5,  10,  0,  0,  0,  0,  0,  0],
-        'servo_max_angles':         [85, 90, 80, 80, 90, 90, 90, 90]
+        'servo_zero_offset':         [5,  12,  15,  0,  0,  0,  0,  0]
     }
     return config
