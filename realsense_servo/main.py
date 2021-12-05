@@ -80,7 +80,11 @@ def main():
             counts = np.zeros(cfg['actuators'])
 
             # truncate out borders because they're usually rly messy
-            depth_image = depth_image[cfg['border_trunc']:(rows - cfg['border_trunc']), cfg['border_trunc']:(cols - cfg['border_trunc'])]
+            row_min = cfg['border_trunc']
+            row_max = int(rows - cfg['border_trunc'])
+            col_min = cfg['border_trunc']
+            col_max = int(cols - cfg['border_trunc'])
+            depth_image = depth_image[row_min:row_max, col_min:col_max]
 
             ##### split depth map into 8 cols
             depth_image_split = np.hsplit(depth_image, cfg['actuators'])
