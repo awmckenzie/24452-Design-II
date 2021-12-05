@@ -90,7 +90,7 @@ def main():
             ##### calculate servo angle
             for i in range(cfg['actuators']):
             	if counts[i] > cfg['min_count']:
-                    servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
+                    servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (depths[i] - cfg['min_dist']) / (cfg['max_dist'] - cfg['min_dist']))
             #ipdb.set_trace()
             for i in range(cfg['actuators']):
                 servos[i].move(servo_targets[i])
