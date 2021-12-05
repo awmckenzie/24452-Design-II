@@ -83,6 +83,9 @@ def main():
                 if counts[i] > 0:
                     depths[i] = np.mean(depth_filtered[depth_filtered != 0])
 
+                if i == 1:
+                    print(depth_filtered[depth_filtered != 0])
+
             ##### calculate servo angle
             for i in range(cfg['actuators']):
             	if counts[i] > cfg['min_count']:
