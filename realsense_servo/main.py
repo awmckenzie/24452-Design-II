@@ -36,7 +36,7 @@ def main():
         spatial_filter = rs.spatial_filter(0.5, 20, 5, 0)
 
         # time averaging
-        temporal_filter = rs.temporal_filter(0.4, 20, 8) 
+        temporal_filter = rs.temporal_filter(0.4, 20, 3) 
 
         # transform into 1/D domain to decrease depth noise
         depth2disparity = rs.disparity_transform()
@@ -83,9 +83,9 @@ def main():
                     depths[i] = np.mean(depth_image_split[i][depth_image_split[i] != 0])
                     
                 else:
-                    if np.mean(depth_image_split[i]) >= cfg['max_dist']:
+                    if np.var(depth_image_split[i] > 3):
                         depths[i] = cfg['max_dist']
-                    else: 
+                    else:
                         depths[i] = cfg['min_dist']
                 
                 servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
