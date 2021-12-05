@@ -10,12 +10,12 @@ cfg = config.config()
 min_angles = cfg['servo_min_angles']
 max_angles = cfg['servo_max_angles']
 
-def set(angle=cfg['servo_min_angles'], pinout=-1):
+def set(angle=0, pinout=-1):
     if pinout == -1:
         for i in range(actuators):
-            servos[i].move(angle[i])
+            servos[i].move(angle)
     else:
-        servos[pinout].move(angle[pinout])
+        servos[pinout].move(angle)
 
 servo.init_servos(servos, actuators, min_angles, max_angles)
 
