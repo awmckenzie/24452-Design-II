@@ -75,12 +75,12 @@ def main():
             depth_image_split = np.hsplit(depth_image, cfg['actuators'])
 
             for i in range(cfg['actuators']):
-                counts[i] = np.count_nonzero(depth_image_split[i] > cfg['min_dist'] & depth_image_split[i] < cfg['max_dist'])
+                counts[i] = np.count_nonzero((depth_image_split[i] > cfg['min_dist']) & (depth_image_split[i] < cfg['max_dist']))
 
                 if counts[i] > cfg['min_count']:
                     depth_image_split[i] = np.where((depth_image_split[i] > cfg['max_dist']), 0, depth_image_split[i])
                     depth_image_split[i] = np.where((depth_image_split[i] < cfg['min_dist']), 0, depth_image_split[i])
-                    depths[i] = np.mean(depth_filtered[depth_filtered != 0])
+                    depths[i] = np.mean(depth_image_split[i][depth_image_split[i] != 0])
                     
                 else:
                     if np.mean(depth_image_split[i]) >= cfg['max_dist']:
