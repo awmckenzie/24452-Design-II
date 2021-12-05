@@ -2,6 +2,7 @@ import pyrealsense2.pyrealsense2 as rs
 import numpy as np
 import cv2
 from adafruit_servokit import ServoKit
+import ipdb
 
 import servo
 import config
@@ -83,13 +84,13 @@ def main():
                 if counts[i] > 0:
                     depths[i] = np.mean(depth_filtered[depth_filtered != 0])
 
-                if i == 1:
-                    print(depth_filtered[depth_filtered != 0])
+                ipdb.set_trace()
 
             ##### calculate servo angle
             for i in range(cfg['actuators']):
             	if counts[i] > cfg['min_count']:
                     servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
+            ipdb.set_trace()
             print(depths[1])
             print(servos[1].min_angle, servos[1].max_angle, depths[1], servo_targets[1])
             for i in range(cfg['actuators']):
