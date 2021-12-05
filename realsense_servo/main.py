@@ -83,7 +83,7 @@ def main():
                     depths[i] = np.mean(depth_image_split[i][depth_image_split[i] != 0])
                     
                 else:
-                    if np.var(depth_image_split[i]) > 5:
+                    if np.var(depth_image_split[i]) / np.average(depth_image_split[i]) > 1:
                         depths[i] = cfg['min_dist']
                     else:
                         depths[i] = cfg['max_dist']
