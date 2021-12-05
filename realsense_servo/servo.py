@@ -20,8 +20,8 @@ class Servo:
         self.zero_point = 90 # angle for the central position
 
     def zero(self, min_angle):
-        kit.servo[self.pinout].angle = self.zero_point + self.min_angle
-        self.angle = self.zero_point + self.min_angle
+        self.move(self.min_angle)
+        self.angle = kit.servo[self.pinout].angle
 
     def move(self, target_angle):
         if self.mirrored:
