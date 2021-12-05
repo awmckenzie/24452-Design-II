@@ -11,7 +11,7 @@ def config():
         'min_count':                .10, # % of the column that needs to be valid
         'min_dist':                 600,
         'max_dist':                 2000,
-        'border_trunc':             10, # rows/cols to truncate
+        'border_trunc':             8, # rows/cols to truncate, must be multiple of 8
 
         'servo_zero_offset':         [5,  12,  15,  0,  0,  0,  0,  0]
     }
