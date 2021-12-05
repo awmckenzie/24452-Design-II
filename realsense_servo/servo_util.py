@@ -17,11 +17,6 @@ def set(angle=0, pinout=-1):
     else:
         servos[pinout].move(angle)
 
-for i in range(actuators):
-    servos.append(servo.Servo(i, min_angles[i], max_angles[i]))
+servo.init_servos(servos, actuators, min_angles, max_angles)
 
-    for s in servos:
-            s.zero()
-            s.update_angle()
-            
 ipdb.set_trace()

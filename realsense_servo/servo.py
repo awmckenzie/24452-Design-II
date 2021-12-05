@@ -38,8 +38,8 @@ def init_servos(servos, num_servos, min_angles, max_angles):
     for i in range(num_servos):
         servos.append(Servo(i, min_angles[i], max_angles[i]))
 
-    for s in servos:
-            s.zero(min_angles[i])
-            s.update_angle()
+    for i in range(num_servos):
+            servos[i].zero(min_angles[i])
+            servos[i].update_angle()
     
     return servos
