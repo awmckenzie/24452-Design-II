@@ -37,10 +37,10 @@ def main():
         hole_filter = rs.hole_filling_filter()
 
         # smooth edges
-        spatial_filter = rs.spatial_filter(0.5, 20, 5, 0)
+        spatial_filter = rs.spatial_filter()
 
         # time averaging
-        temporal_filter = rs.temporal_filter(0.4, 20, 3) 
+        temporal_filter = rs.temporal_filter() 
 
         # transform into 1/D domain to decrease depth noise
         depth2disparity = rs.disparity_transform()
