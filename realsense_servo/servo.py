@@ -45,6 +45,6 @@ def init_servos(servos, num_servos, min_angles, max_angle):
             servos[i].zero()
             servos[i].update_angle()
 
-            servos[i].max_angle = 90 - max_offset + servos[i].min_angle
+            servos[i].max_angle = max_angle - max_offset + servos[i].min_angle
     
     return servos
