@@ -84,7 +84,9 @@ def main():
             row_max = int(rows - cfg['border_trunc'])
             col_min = cfg['border_trunc']
             col_max = int(cols - cfg['border_trunc'])
+            ipdb.set_trace()
             depth_image = depth_image[:, row_min:row_max]
+            ipdb.set_trace()
 
             ##### split depth map into 8 cols
             depth_image_split = np.hsplit(depth_image, cfg['actuators'])
