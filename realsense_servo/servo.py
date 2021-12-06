@@ -10,7 +10,7 @@ class Servo:
         self.angle = 0
         self.target_angle = 0
 
-        if pinout==0 or pinout==1 or pinout==6 or pinout==7:
+        if pinout==2 or pinout==3 or pinout==6 or pinout==7:
             self.mirrored = True
         else:
             self.mirrored = False
