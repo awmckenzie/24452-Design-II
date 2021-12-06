@@ -126,6 +126,7 @@ def main():
             print(time4-time3)
             print(time5-time4)
             print(time6-time5)
+            print()
     finally:
         pipeline.stop()
         print('pipeline stop')
