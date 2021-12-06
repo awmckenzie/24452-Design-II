@@ -13,7 +13,7 @@ def config():
         'max_dist':                 2000, 
         'border_trunc':             8, # rows/cols to truncate, must be multiple of 8
 
-        'servo_zero_offset':        [5,  12,  15,  0,  0,  0,  0,  0],
+        'servo_zero_offset':        [0,  0,  0,  0,  0,  0,  0,  0],
         'max_rotation':             45
     }
     return config
