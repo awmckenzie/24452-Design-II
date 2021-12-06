@@ -6,7 +6,7 @@ def config():
         'fps':                      30,
 
         'queue_size':               1,
-        'depth_decimation_level':   5,
+        'depth_decimation_level':   6,
         'cv_decimation_level':      2,
         'min_count':                .10, # % of the column that needs to be valid
         'min_dist':                 600,
