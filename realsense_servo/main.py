@@ -121,12 +121,12 @@ def main():
             cv2.imshow('RealSense', depth_colormap)
             cv2.waitKey(1) # delay 1ms
             time6=time.time()
-            print(time2-time1)
-            print(time3-time2)
-            print(time4-time3)
-            print(time5-time4)
-            print(time6-time5)
-            print()
+            # print(time2-time1)
+            # print(time3-time2)
+            # print(time4-time3)
+            # print(time5-time4)
+            # print(time6-time5)
+            # print()
     finally:
         pipeline.stop()
         print('pipeline stop')
