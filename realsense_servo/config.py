@@ -14,6 +14,7 @@ def config():
         'border_trunc':             8, # rows/cols to truncate, must be multiple of 8
 
         'servo_zero_offset':        [0,  0,  0,  0,  0,  0,  0,  0],
-        'max_rotation':             45
+        'max_rotation':             45,
+        'cv_display':               True
     }
     return config

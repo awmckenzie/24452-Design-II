@@ -15,6 +15,8 @@ def main():
         rows = cfg['x_res'] / cfg['depth_decimation_level']
         cols = cfg['y_res'] / cfg['depth_decimation_level']
         min_count = int(cfg['min_count'] * rows * cols / cfg['actuators'])
+        row_min = cfg['border_trunc']
+        row_max = int(rows - cfg['border_trunc'])
 
         ###########################################
         kit = ServoKit(channels=16)
@@ -63,15 +65,17 @@ def main():
             depth_frame = frame.as_frameset().get_depth_frame()
             depth_frame_filtered = depth_frame
 
+            if cfg['cv_display']:
+                depth_frame_cv = depth_frame
+                depth_frame_cv = decimation_filter_cv.process(depth_frame_cv)
+                depth_image_cv = np.asanyarray(depth_frame_cv.get_data())
+
             depth_frame_filtered = decimation_filter_depth.process(depth_frame_filtered)
             depth_frame_filtered = depth2disparity.process(depth_frame_filtered)
             depth_frame_filtered = spatial_filter.process(depth_frame_filtered)
             depth_frame_filtered = temporal_filter.process(depth_frame_filtered)
             depth_frame_filtered = disparity2depth.process(depth_frame_filtered)
             #depth_frame_filtered = hole_filter.process(depth_frame_filtered)
-            #depth_frame_cv = decimation_filter_cv.process(depth_frame_cv)
-
-            #depth_image_cv = np.asanyarray(depth_frame_filtered)
             depth_image = np.asanyarray(depth_frame_filtered.get_data())
 
             depths = np.zeros(cfg['actuators'])
@@ -79,10 +83,6 @@ def main():
             counts = np.zeros(cfg['actuators'])
 
             # truncate out borders because they're usually rly messy
-            row_min = cfg['border_trunc']
-            row_max = int(rows - cfg['border_trunc'])
-            col_min = cfg['border_trunc']
-            col_max = int(cols - cfg['border_trunc'])
             depth_image = depth_image[:, row_min:row_max]
 
             ##### split depth map into 8 cols
@@ -101,16 +101,15 @@ def main():
                         depths[i] = cfg['max_dist']
                     else:
                         depths[i] = cfg['min_dist']
-                    # if np.var(depth_image_split[i]) / np.average(depth_image_split[i]) > 1:
-                    #     depths[i] = cfg['min_dist']
-                    # else:
-                    #     depths[i] = cfg['max_dist']
                 
                 servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
 
             for i in range(cfg['actuators']):
                 servos[i].move(servo_targets[i])
-            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
+            if cfg['cv_display']:
+                depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image_cv, alpha=0.03), cv2.COLORMAP_JET)
+            else:
+                depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', depth_colormap)
             cv2.waitKey(1) # delay 1ms
