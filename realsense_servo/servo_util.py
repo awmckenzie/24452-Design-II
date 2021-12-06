@@ -16,6 +16,6 @@ def set(angle=0, pinout=-1):
     else:
         servos[pinout].move(angle)
 
-servo.init_servos(servos, actuators, min_angles)
+servo.init_servos(servos, actuators, min_angles, cfg['max_rotation'])
 
 ipdb.set_trace()

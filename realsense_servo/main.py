@@ -21,7 +21,7 @@ def main():
         #servo_targets = [0, 0, 0, 0, 0, 0, 0, 0] # 0 to 180 degrees
         #depths = [0, 0, 0, 0, 0, 0, 0, 0] # 600 to 2000 mm
         
-        servos = servo.init_servos(servos, cfg['actuators'], cfg['servo_zero_offset'])
+        servos = servo.init_servos(servos, cfg['actuators'], cfg['servo_zero_offset'], cfg['max_rotation'])
 
         ###########################################
         pipeline = rs.pipeline()
@@ -80,11 +80,11 @@ def main():
             counts = np.zeros(cfg['actuators'])
 
             # truncate out borders because they're usually rly messy
-            row_min = cfg['border_trunc']
-            row_max = int(rows - cfg['border_trunc'])
-            col_min = cfg['border_trunc']
-            col_max = int(cols - cfg['border_trunc'])
-            depth_image = depth_image[row_min:row_max, col_min:col_max]
+            # row_min = cfg['border_trunc']
+            # row_max = int(rows - cfg['border_trunc'])
+            # col_min = cfg['border_trunc']
+            # col_max = int(cols - cfg['border_trunc'])
+            # depth_image = depth_image[row_min:row_max, col_min:col_max]
 
             ##### split depth map into 8 cols
             depth_image_split = np.hsplit(depth_image, cfg['actuators'])
