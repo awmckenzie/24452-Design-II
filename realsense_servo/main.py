@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 from adafruit_servokit import ServoKit
 import ipdb
+import time
 
 import servo
 import config
@@ -58,18 +59,19 @@ def main():
         # servos 0, 1, 4, 5 are mirrored
 
         while(True):
+            time1 = time.time()
             frame = frame_queue.wait_for_frame()
             depth_frame = frame.as_frameset().get_depth_frame()
             depth_frame_filtered = depth_frame
             #depth_frame_cv = np.copy(depth_frame)
-
+            time2 = time.time()
             depth_frame_filtered = decimation_filter_depth.process(depth_frame_filtered)
             depth_frame_filtered = depth2disparity.process(depth_frame_filtered)
             depth_frame_filtered = spatial_filter.process(depth_frame_filtered)
             depth_frame_filtered = temporal_filter.process(depth_frame_filtered)
             depth_frame_filtered = disparity2depth.process(depth_frame_filtered)
             #depth_frame_filtered = hole_filter.process(depth_frame_filtered)
-
+            time3 = time.time()
             #depth_frame_cv = decimation_filter_cv.process(depth_frame_cv)
 
             #depth_image_cv = np.asanyarray(depth_frame_filtered)
@@ -84,9 +86,7 @@ def main():
             row_max = int(rows - cfg['border_trunc'])
             col_min = cfg['border_trunc']
             col_max = int(cols - cfg['border_trunc'])
-            ipdb.set_trace()
             depth_image = depth_image[:, row_min:row_max]
-            ipdb.set_trace()
 
             ##### split depth map into 8 cols
             depth_image_split = np.hsplit(depth_image, cfg['actuators'])
@@ -110,17 +110,22 @@ def main():
                     #     depths[i] = cfg['max_dist']
                 
                 servo_targets[i] = servos[i].min_angle + round((servos[i].max_angle - servos[i].min_angle) * (cfg['max_dist'] - depths[i]) / (cfg['max_dist'] - cfg['min_dist']))
-
+            time4=time.time()
                 #ipdb.set_trace()
-            print(depths)
+            # print(depths)
             for i in range(cfg['actuators']):
                 servos[i].move(servo_targets[i])
-            
+            time5=time.time()
             depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', depth_colormap)
             cv2.waitKey(1) # delay 1ms
-
+            time6=time.time()
+            print(time2-time1)
+            print(time3-time2)
+            print(time4-time3)
+            print(time5-time4)
+            print(time6-time5)
     finally:
         pipeline.stop()
         print('pipeline stop')
